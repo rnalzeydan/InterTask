@@ -1,0 +1,59 @@
+﻿@model InterTask.Models.ViewModel.WeatherVM
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script type="text/javascript">
+   function PopulateWeather() {
+       var city = $('#Cites').val();
+       $.ajax({
+           type: 'POST',
+           cache: false,
+           url: '@Url.Action("Weather", "Home")',
+           data: { city: city },
+           success: function (response) {
+               $("#ApiResult").empty();
+               $("#ApiResult").html(
+                   response +
+                   '<a onclick="Save();" class="btn btn-info w-100" role="button">Save</a>'
+               );
+
+
+           }
+       });
+    }
+
+
+    function Save() {
+        var data = {
+            city: $('#Cites').val(),
+            humidity: document.getElementById('h').textContent.toString().trim(),
+            temp_max: document.getElementById('tmax').textContent.toString().trim(),
+            temp_min: document.getElementById('tmin').textContent.toString().trim()
+        };
+
+         $.ajax({
+             type: 'POST',
+             cache: false,
+             url: '@Url.Action("SaveWeatherResult", "Home")',
+             data: data,
+             success: function (r) {
+                  window.location = '@Url.Action("Results", "Home")';
+             }
+
+       });
+    }
+
+</script>
+
+<div class="container content">
+    <div class="form-group dd-cities">
+        <label>Select City</label>
+        @Html.DropDownListFor(model => model.Cites, Model.Cites, new { @onchange = "PopulateWeather()", @class = "form-control" })
+    </div>
+
+    <div id="ApiResult"></div>
+</div>
+
+

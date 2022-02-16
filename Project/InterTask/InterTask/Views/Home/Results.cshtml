@@ -1,0 +1,79 @@
+﻿@using System.Data
+@model DataSet
+
+<script>
+    function filter() {
+        const val = event.target.value;
+        console.log(val);
+        $("#table td.city:contains('" + val + "')").parent().show();
+        $("#table td.city:not(:contains('" + val + "'))").parent().hide();
+    }
+
+    function collectChecked() {
+        var selected = [];
+        $('#ApiResult input:checked').each(function () {
+            selected.push($(this).attr('value'));
+        });
+
+        //console.log(selected);
+        //var data = {
+        //    data: selected
+        //};
+
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: '@Url.Action("DeleteSelected", "Home")',
+            data: { data: selected },
+             success: function (r) {
+                  
+             }
+       });
+    }
+</script>
+
+<div class="container content">
+
+
+
+    <div id="ApiResult">
+        <input type="text" id="filter" class="form-control" placeholder="search .." onchange="filter(event);" />
+            <table class="table" id="table">
+                <tr>
+                    <th>
+                        Actions
+                    </th>
+                    <th>
+                        User
+                    </th>
+                    <th>
+                        City
+                    </th>
+                    <th>
+                        Humidity
+                    </th>
+                    <th>
+                        Temperature Max
+                    </th>
+                    <th>
+                        Temperature Min
+                    </th>
+                </tr>
+
+                @foreach (DataRow row in Model.Tables[0].Rows)
+                {
+                    <tr>
+                        <td><input type="checkbox" id="ID" value="@row["id"]"></td>
+                        <td>@row["Username"]</td>
+                        <td class="city">@row["City"]</td>
+                        <td>@row["Humidity"]</td>
+                        <td>@row["TemperatureMax"]</td>
+                        <td>@row["TemperatureMin"]</td>
+                    </tr>
+                }
+
+            </table>
+            <button class="btn btn-lg btn-danger btn-block" type="submit" onclick="collectChecked();">Delete Selected</button>
+    </div>
+</div>
+

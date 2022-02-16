@@ -1,0 +1,28 @@
+﻿@model InterTask.Models.ViewModel.WeatherVM
+
+<table class="table">
+    <tr>
+        <th>
+            Humidity
+        </th>
+        <th>
+            Temperature Max
+        </th>
+        <th>
+            Temperature Min
+        </th>
+    </tr>
+    <tr>
+        <td id="h">
+            @Html.DisplayFor(m => m.CityWeather.humidity)
+        </td>
+
+        <td id="tmax">
+            @Html.DisplayFor(m => m.CityWeather.temp_max)
+        </td>
+
+        <td id="tmin">
+            @Html.DisplayFor(m => m.CityWeather.temp_min)
+        </td>
+    </tr>
+</table>

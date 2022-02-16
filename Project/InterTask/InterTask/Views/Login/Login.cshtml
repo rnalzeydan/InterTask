@@ -1,0 +1,46 @@
+﻿@model InterTask.Models.Account
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Login/css")
+</head>
+<body>
+
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "form-signin" }))
+    {
+        <img class="mb-4 logo-img" src=@Url.Content("~/Content/images/Logo.png")>
+        <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+        <span class="text-danger">@TempData["InvalidMeassage"]</span>
+        <div class="form-group">
+            <label for="inputUsername">@Html.LabelFor(model => model.Username)</label>
+            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+            <span class="text-danger">@Html.ValidationMessageFor(model => model.Username)</span>
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword">@Html.LabelFor(model => model.Password)</label>
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+            <span class="text-danger">@Html.ValidationMessageFor(model => model.Password)</span>
+        </div>
+
+        <button class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
+
+    }
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

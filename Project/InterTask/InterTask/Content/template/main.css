@@ -1,0 +1,44 @@
+﻿body {
+    background-color: #f5f5f5;
+}
+
+.navbar-brand {
+    padding: unset;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 45px 15px;
+}
+
+    .content .btn {
+        width: 250px;
+    }
+
+#ApiResult {
+    width: 100%;
+    text-align: center !important;
+}
+
+    #ApiResult th {
+        text-align: center;
+    }
+
+.dd-cities {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+    .dd-cities label {
+        margin-bottom: unset;
+        margin-right: 15px;
+    }
+
+
+#filter {
+    margin-bottom: 5px;
+}
